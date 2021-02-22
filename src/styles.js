@@ -17,25 +17,36 @@ export const Header = styled.div`
 `;
 
 export const Message = styled.div`
-    background-color: #559955;
-    max-width: 400px;
+    max-width: 75%;
     word-break: break-all;
     margin-top: 0.125em;
     margin-bottom: 0.125em;
     padding: 0.50em 1em;
     border-radius: 15px;
-    margin-left: 25%;
 `;
 
-export const Sent = styled.div`
+export const SentMessage = styled(Message)`
+
+    background-color: #559955;
+    text-align: right;
+    margin-left: auto;
+
+`;
+
+export const ReceivedMessage = styled(Message)`
     background-color: #555599;
+    margin-right: auto;
+`;
+
+
+export const Sent = styled.div`
+    
     max-width: 400px;
     word-break: break-all;
     margin-top: 0.125em;
     margin-bottom: 0.125em;
     padding: 0.50em;
     border-radius: 15px;
-    margin-right: 25%;
 
 `;
 

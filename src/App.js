@@ -7,7 +7,7 @@ import { useAuthState } from 'react-firebase-hooks/auth'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
 import { useState, useRef } from 'react';
 
-import { Container, Header, Message, Form, Messages, Sent } from './styles'
+import { Container, Header, Message, Form, Messages, Sent, ReceivedMessage, SentMessage} from './styles'
 
 //import React from 'react'
 
@@ -71,8 +71,6 @@ const SignIn = () => {
 
 const ChatRoom = () => {
   const dummy = useRef();
-  console.log("ref", dummy)
-  //dummy.current ? dummy.current.scrollIntoView({ behavior: 'smooth' }) : console.log("hmm");
 
 
   const messagesRef = firestore.collection('messages');
@@ -135,7 +133,7 @@ const ChatMessage = (props) => {
   const sent = uid === auth.currentUser.uid ? true : false;
 
   return (
-    sent ? <Message>{text}</Message> : <Sent>{text}</Sent>
+    sent ? <SentMessage>{text}</SentMessage> : <ReceivedMessage>{text}</ReceivedMessage>
   )
 }
 
