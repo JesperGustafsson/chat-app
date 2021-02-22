@@ -46,8 +46,18 @@ const SignIn = () => {
     auth.signInWithPopup(provider);
   }
 
+  const signInWithFacebook = () => {
+    const provider = new firebase.auth.FacebookAuthProvider();
+    auth.signInWithPopup(provider);
+  }
+
+  const signInWithAnonymous = () => {
+    firebase.auth().signInAnonymously();
+  }
     return (
 <>    <button onClick={signInWithGoogle}>Sign in with Google</button>
+      <button onClick={signInWithFacebook}>Sign in with Facebook</button>
+      <button onClick={signInWithAnonymous}>Sign in Anonymously</button>
 </>
     )
 }
