@@ -21,7 +21,7 @@ export const Header = styled.div`
     text-align: center;
     font-weight: 900;
     font-size: 24px;
-    border-bottom: solid 2px;
+    border-bottom: solid 1px;
     
 
 `;

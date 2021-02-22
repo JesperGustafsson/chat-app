@@ -117,7 +117,7 @@ const ChatRoom = () => {
   </Messages>
   <div>
     <Form onSubmit = {sendMessage}>
-      <input value = {formValue} onChange= {(e) => setFormValue(e.target.value)}></input>
+      <input placeholder = "write something here..." value = {formValue} onChange= {(e) => setFormValue(e.target.value)}></input>
       <button type ="submit" disabled={!formValue}>SEND MESSAGE!</button>
     </Form>
   </div>
