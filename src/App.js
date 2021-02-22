@@ -5,7 +5,9 @@ import 'firebase/analytics';
 
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+
+import { Container, Header, Message, Form, Messages, Sent } from './styles'
 
 //import React from 'react'
 
@@ -30,12 +32,16 @@ const App = () => {
 
 
   return (
-    <div>
-      App!
-      <section>
-        { user ? <ChatRoom /> : <SignIn /> }
-      </section>
-    </div>
+    <>
+      
+    <Container>
+      <Header>
+        This is an anonymous chatroom!
+      </Header>
+      { user ? <ChatRoom id="chatbox" /> : <SignIn /> }
+    </Container>
+
+    </>
   )
 }
 
@@ -64,9 +70,13 @@ const SignIn = () => {
 
 
 const ChatRoom = () => {
+  const dummy = useRef();
+  console.log("ref", dummy)
+  //dummy.current ? dummy.current.scrollIntoView({ behavior: 'smooth' }) : console.log("hmm");
+
 
   const messagesRef = firestore.collection('messages');
-  const query = messagesRef.orderBy('createdAt').limit(25);
+  const query = messagesRef.orderBy('createdAt', 'desc').limit(25);
 
   const [messages] = useCollectionData(query, {idField: 'id'})
 
@@ -76,6 +86,8 @@ const ChatRoom = () => {
 
   const sendMessage = async (e) => {
     e.preventDefault();
+
+    console.log("sendmessage!")
 
     const { uid, photoURL } = auth.currentUser;
 
@@ -87,18 +99,31 @@ const ChatRoom = () => {
     })
 
     setFormValue('');
+
+    
+    dummy.current.scrollIntoView({ behavior: 'smooth'});
+
   }
 
   return (
   <>
-  <div>
+
+  
+
+  <Messages>
+  <span ref={dummy}></span>
     {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg}/>)}
-  </div>
+    {/* {dummy.current && console.log("dummref", dummy) && dummy.current.scrollIntoView({ behavior: 'smooth' })}; */}
+
+  </Messages>
   <div>
-    <form onSubmit = {sendMessage}>
+    <Form onSubmit = {sendMessage}>
       <input value = {formValue} onChange= {(e) => setFormValue(e.target.value)}></input>
       <button type ="submit" disabled={!formValue}>SEND MESSAGE!</button>
-    </form>
+    </Form>
+  </div>
+  <div>
+    <SignOut />
   </div>
   </>)
 }
@@ -106,15 +131,18 @@ const ChatRoom = () => {
 
 const ChatMessage = (props) => {
   const { text, uid } = props.message;
+
+  const sent = uid === auth.currentUser.uid ? true : false;
+
   return (
-    <p>{text}</p>
+    sent ? <Message>{text}</Message> : <Sent>{text}</Sent>
   )
 }
 
 const SignOut = () => {
-  return auth.currentUser && (
-    <button onClick={auth.signOut()}>Sign Out!!!</button>
-  )
+  return (
+    <button onClick={(e) => auth.signOut()}>Sign Out!!!</button>
+  ) 
 }
 
 export default App
