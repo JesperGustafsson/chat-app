@@ -36,10 +36,11 @@ const App = () => {
       
     <Container>
       <Header>
-        This is an anonymous chatroom!
+        {"<anonymous chatroom/>"}
       </Header>
       { user ? <ChatRoom id="chatbox" /> : <SignIn /> }
     </Container>
+    {user && <SignOut />}
 
     </>
   )
@@ -121,7 +122,7 @@ const ChatRoom = () => {
     </Form>
   </div>
   <div>
-    <SignOut />
+    
   </div>
   </>)
 }
