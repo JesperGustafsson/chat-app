@@ -1,17 +1,33 @@
 import styled from 'styled-components';
+import createGlobalStyle from 'styled-components'
+
+/* export const GlobalStyle = createGlobalStyle`
+
+    body {
+        background-color: red;
+    }
+`; */
 
 
 export const Container = styled.div`
     background-color: #333333;
 
     border: 1px solid;
+
     width: 400px;
-    height: 600px;
-    margin: auto;
+    height: 700px;
+    margin: 1em auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    box-shadow: 0.25em 0.25em 20px black;
 
+    @media (max-width: 600px) {
+        width: 100%;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+    }
 `;
 
 export const Header = styled.div`
@@ -49,24 +65,15 @@ export const ReceivedMessage = styled(Message)`
 `;
 
 
-export const Sent = styled.div`
-    
-    max-width: 400px;
-    word-break: break-all;
-    margin-top: 0.125em;
-    margin-bottom: 0.125em;
-    padding: 0.50em;
-    border-radius: 15px;
-
-`;
-
 export const Messages = styled.div`
     overflow-y: scroll;
-    height: 500px;
+    height: 100%;
     display: flex;
     flex-direction: column-reverse;
-    padding: 0.5em 1em;
+    padding-left: 1em;
+    padding-right: 1em;
     padding-bottom: 1em;
+    padding-top: 1em; //not working lol
 `;
 
 export const Form = styled.form`
@@ -74,9 +81,10 @@ export const Form = styled.form`
     display: flex;
     width: 100%;
     height: 3em;
+    justify-content: space-between;
 
     >input {
-        max-width: 100%;
+            width: 100%;
         padding: 0em 0.5em;
         font-size: 20px;
         border: none;

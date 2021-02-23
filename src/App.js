@@ -7,7 +7,9 @@ import { useAuthState } from 'react-firebase-hooks/auth'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
 import { useState, useRef } from 'react';
 
-import { Container, Header, Message, Form, Messages, Sent, ReceivedMessage, SentMessage} from './styles'
+import { createGlobalStyle } from 'styled-components';
+
+import { Container, Header, Message, Form, Messages, Sent, ReceivedMessage, SentMessage/* , GlobalStyle */} from './styles'
 
 //import React from 'react'
 
@@ -26,6 +28,14 @@ const auth = firebase.auth();
 const firestore = firebase.firestore();
 const analytics = firebase.analytics();
 
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    background-color: #191919;  
+    margin: 0;
+  }
+`;
+
 const App = () => {
 
   const [user] = useAuthState(auth);
@@ -33,15 +43,14 @@ const App = () => {
 
   return (
     <>
-      
+    <GlobalStyle/>
     <Container>
       <Header>
         {"<anonymous chatroom/>"}
       </Header>
       { user ? <ChatRoom id="chatbox" /> : <SignIn /> }
+      {user && <SignOut />}
     </Container>
-    {user && <SignOut />}
-
     </>
   )
 }
